@@ -3,6 +3,16 @@
 A cosy 3D farming game for the browser (original game in the classic browser-farm genre).
 Built with Vite + vanilla JavaScript + Three.js; every model, icon and sound is procedural – there are no external assets.
 
+![Farm by day](docs/screenshots/farm-day.jpg)
+
+| | |
+| --- | --- |
+| ![Close-up](docs/screenshots/farm-closeup.jpg) | ![Night](docs/screenshots/farm-night.jpg) |
+| ![Winter](docs/screenshots/farm-winter.jpg) | ![Production building](docs/screenshots/ui-production.jpg) |
+| ![Market stall](docs/screenshots/ui-market.jpg) | ![Ripe crops](docs/screenshots/models-crops.jpg) |
+
+![Building models](docs/screenshots/models-buildings.jpg)
+
 ## Run
 
 ```bash
