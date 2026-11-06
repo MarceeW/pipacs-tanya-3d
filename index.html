@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#5fae3a" />
+  <title>Pipacs Tanya 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/ui/style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="ui">
+    <div id="hud-left">
+      <div id="profile" data-act="journal">
+        <div class="avatar"><img id="avatar-img" alt="" /></div>
+        <div class="lvl-badge"><span id="lvl">1</span></div>
+        <div class="profile-info">
+          <div id="farm-name">Pipacs Tanya</div>
+          <div class="xpbar"><i id="xp-fill"></i><span id="xp-text">0 / 30</span></div>
+        </div>
+      </div>
+      <div id="quest" class="quest"></div>
+      <div id="side-left" class="side-btns">
+        <button class="sbtn" data-act="tasks" title="Napi feladatok"><img data-icon="ui:calendar" /><b class="badge" id="b-tasks"></b><span>Feladatok</span></button>
+        <button class="sbtn" data-act="journal" title="Napló"><img data-icon="ui:trophy" /><span>Napló</span></button>
+      </div>
+    </div>
+
+    <div id="hud-top">
+      <div class="counter" id="c-coins" data-act="shop"><img data-icon="ui:coin" /><span id="coins">0</span></div>
+      <div class="counter gem" id="c-gems"><img data-icon="ui:gem" /><span id="gems">0</span></div>
+      <div class="counter barn" id="c-barn" data-act="storage"><img data-icon="ui:barn" /><span id="storage">0/0</span><i id="storage-fill"></i></div>
+    </div>
+
+    <div id="hud-right">
+      <div id="clock" data-act="calendar">
+        <img id="season-img" data-icon="ui:spring" />
+        <div class="clock-txt"><b id="clock-time">08:00</b><span id="clock-date">Tavasz 1. nap</span></div>
+        <img id="weather-img" data-icon="ui:sun" />
+      </div>
+      <div class="side-btns" id="side-right">
+        <button class="sbtn" data-act="orders" title="Megrendelések (O)"><img data-icon="ui:orders" /><b class="badge" id="b-orders"></b><span>Rendelések</span></button>
+        <button class="sbtn" data-act="market" title="Piac"><img data-icon="ui:market" /><b class="badge" id="b-market"></b><span>Piac</span></button>
+        <button class="sbtn" data-act="visitors" title="Látogatók"><img data-icon="ui:visitor" /><b class="badge" id="b-visitors"></b><span>Vendégek</span></button>
+        <button class="sbtn" data-act="barge" title="Uszály" id="btn-barge"><img data-icon="ui:boat" /><b class="badge" id="b-barge"></b><span>Uszály</span></button>
+        <button class="sbtn" data-act="fishing" title="Horgászat"><img data-icon="ui:fishing" /><span>Horgászat</span></button>
+      </div>
+    </div>
+
+    <div id="toolbar">
+      <div class="tools">
+        <button class="tool" data-tool="hand" title="Kéz – okos művelet (1)"><img data-icon="ui:hand" /><kbd>1</kbd></button>
+        <button class="tool" data-tool="plow" title="Kapa – szántás (2)"><img data-icon="ui:hoe" /><kbd>2</kbd></button>
+        <button class="tool seedtool" data-tool="seed" title="Vetés (3) – kattints újra a magválasztóhoz"><img id="seed-img" data-icon="item:wheat" /><kbd>3</kbd><em class="seed-caret">▲</em></button>
+        <button class="tool" data-tool="water" title="Öntözés (4)"><img data-icon="ui:wateringcan" /><kbd>4</kbd></button>
+        <button class="tool" data-tool="harvest" title="Aratás / begyűjtés (5)"><img data-icon="ui:sickle" /><kbd>5</kbd></button>
+        <span class="sep"></span>
+        <button class="tool" data-tool="move" title="Áthelyezés (6)"><img data-icon="ui:move" /><kbd>6</kbd></button>
+        <button class="tool" data-tool="remove" title="Eltávolítás / takarítás (7)"><img data-icon="ui:shovel" /><kbd>7</kbd></button>
+      </div>
+      <div class="cam-btns">
+        <button class="mini" data-act="rotL" title="Forgatás (Q)">⟲</button>
+        <button class="mini" data-act="zoomIn" title="Nagyítás (+)">＋</button>
+        <button class="mini" data-act="zoomOut" title="Kicsinyítés (−)">－</button>
+        <button class="mini" data-act="rotR" title="Forgatás (E)">⟳</button>
+      </div>
+    </div>
+
+    <div id="corner-right">
+      <button class="bigbtn" data-act="storage" title="Csűr / raktár (I)"><img data-icon="ui:barn" /><span>Csűr</span></button>
+      <button class="bigbtn shop" data-act="shop" title="Bolt (B)"><img data-icon="ui:shop" /><span>Bolt</span></button>
+      <button class="mini settings" data-act="settings" title="Beállítások"><img data-icon="ui:settings" /></button>
+    </div>
+
+    <div id="place-bar" class="hidden">
+      <span id="place-text">Helyezd el</span>
+      <button class="btn small blue" data-act="rotate">⟳ Forgatás (R)</button>
+      <button class="btn small red" data-act="cancelPlace">✕ Mégse</button>
+    </div>
+
+    <div id="seed-picker" class="hidden"></div>
+    <div id="popover" class="hidden"></div>
+    <div id="tooltip" class="hidden"></div>
+    <div id="toasts"></div>
+    <div id="floaters"></div>
+    <div id="hint-arrow" class="hidden"><div class="arrow">▼</div></div>
+  </div>
+
+  <div id="modal-wrap" class="hidden"><div id="modal"></div></div>
+
+  <div id="loading">
+    <div class="load-box">
+      <div class="logo"><span class="poppy">✿</span> Pipacs Tanya <small>3D</small></div>
+      <div class="load-bar"><i id="load-fill"></i></div>
+      <div id="load-text">A tanya ébredezik…</div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
